@@ -13,10 +13,10 @@ export const createUserService = async (name, email)=> {
     return result.rows[0];
 };
 export const updateUserService = async (id, name, email)=> {
-    const result = await pool.query("UPDATE users WHERE name=$1, email=$2, id=$3 RETURNING" [name, email, id]);
+    const result = await pool.query("UPDATE users SET name=$1, email=$2 WHERE id=$3 RETURNING *", [name, email, id]);
     return result.rows[0];
 };
-export const deleteUserService = async ()=> {
+export const deleteUserService = async (id)=> {
     const result = await pool.query("DELETE FROM users WHERE id=$1 RETURNING *", [id])
     return result.rows[0];
 };
